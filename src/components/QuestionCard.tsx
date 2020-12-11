@@ -21,12 +21,12 @@ const QuestionCard: FC<Props> = ({
     <p className='number'>
       Qustion: {questionNo} / {totalQustions}
     </p>
-    <p dangerouslySetInnerHTML={{ __html: question }} />
+    <p>{question}</p>
     <div>
       {answers.map((answer) => (
         <div>
           <button disabled={userAnswer} onClick={callback}>
-            <span dangerouslySetInnerHTML={{ __html: answer }}></span>
+            <span>{answer}</span>
           </button>
         </div>
       ))}
