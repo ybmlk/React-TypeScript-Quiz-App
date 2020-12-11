@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import QuestionCard from './components/QuestionCard';
 import { fetchQuestions, Difficulty, QuestionState } from './API';
+import './App.css';
 
 const TOTAL_QUESTIONS = 10;
 
@@ -57,32 +58,37 @@ const App = () => {
 
   return (
     <div className='App'>
-      <h1>REACT QUIZ</h1>
+      <div className='container'>
+        <h1>REACT QUIZ</h1>
 
-      {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
-        <button className='start' onClick={startTrivia}>
-          Start
-        </button>
-      )}
+        {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
+          <button className='start' onClick={startTrivia}>
+            Start
+          </button>
+        )}
 
-      {!gameOver && <p className='score'>Score:{score}</p>}
-      {loading && <p>Loading Questions...</p>}
-      {!loading && !gameOver && (
-        <QuestionCard
-          question={questions[number].question}
-          answers={questions[number].answers}
-          callback={checkAnswer}
-          userAnswer={userAnswers[number]}
-          questionNo={number + 1}
-          totalQustions={TOTAL_QUESTIONS}
-        />
-      )}
+        {!gameOver && <p className='score'>Score:{score}</p>}
+        {loading && <p>Loading Questions...</p>}
+        {!loading && !gameOver && (
+          <QuestionCard
+            question={questions[number].question}
+            answers={questions[number].answers}
+            callback={checkAnswer}
+            userAnswer={userAnswers[number]}
+            questionNo={number + 1}
+            totalQustions={TOTAL_QUESTIONS}
+          />
+        )}
 
-      {!loading && !gameOver && userAnswers.length === number + 1 && number + 1 < TOTAL_QUESTIONS && (
-        <button className='next' onClick={nextQuestion}>
-          Next
-        </button>
-      )}
+        {!loading &&
+          !gameOver &&
+          userAnswers.length === number + 1 &&
+          number + 1 < TOTAL_QUESTIONS && (
+            <button className='next' onClick={nextQuestion}>
+              Next
+            </button>
+          )}
+      </div>
     </div>
   );
 };

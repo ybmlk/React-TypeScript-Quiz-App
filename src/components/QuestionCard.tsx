@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { AnswerObject } from '../App';
+import styles from './QuestionCard.module.css';
 
 type Props = {
   question: string;
@@ -17,22 +18,44 @@ const QuestionCard: FC<Props> = ({
   userAnswer,
   questionNo,
   totalQustions,
-}) => (
-  <div>
-    <p className='number'>
-      Qustion: {questionNo} / {totalQustions}
-    </p>
-    <p dangerouslySetInnerHTML={{ __html: question }} />
-    <div>
-      {answers.map((answer) => (
-        <div key={answer}>
-          <button disabled={!!userAnswer} value={answer} onClick={callback}>
-            <span dangerouslySetInnerHTML={{ __html: answer }} />
-          </button>
-        </div>
-      ))}
+}) => {
+  // const btnClassName =
+
+  return (
+    <div className={styles.container}>
+      <p className='number'>
+          Qustion: {questionNo} / {totalQustions}
+        </p>
+      <div className={styles.questionBoard}>
+      <p dangerouslySetInnerHTML={{ __html: question }} />
+        
+      </div>
+
+      <div>
+        {answers.map((answer) => {
+          let btnClass = styles.clicked;
+          if (userAnswer?.correctAnswer === answer) {
+            btnClass = styles.right;
+          }
+          if (userAnswer?.answer === answer && !userAnswer.correct) {
+            btnClass = styles.wrong;
+          }
+          return (
+            <div className={styles.btn} key={answer}>
+              <button
+                className={btnClass}
+                disabled={!!userAnswer}
+                value={answer}
+                onClick={callback}
+              >
+                <span dangerouslySetInnerHTML={{ __html: answer }} />
+              </button>
+            </div>
+          );
+        })}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default QuestionCard;
